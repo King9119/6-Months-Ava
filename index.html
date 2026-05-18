@@ -82,8 +82,8 @@
             text-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
         }
 
-        /* Heart container */
-        .heart-container {
+        /* Arrow and Heart Container */
+        .arrow-heart-container {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -94,13 +94,51 @@
             z-index: 15;
         }
 
-        /* Pink heart */
-        .heart {
-            width: 80px;
-            height: 80px;
+        /* Arrow shaft */
+        .arrow {
+            position: absolute;
+            left: -200px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: arrowShoot 1.5s ease-in 6.5s forwards;
+            opacity: 0;
+            z-index: 12;
+        }
+
+        /* Arrow shaft line */
+        .arrow-shaft {
+            width: 200px;
+            height: 6px;
+            background-color: #FFB6C1;
+            position: relative;
+        }
+
+        /* Arrow tip (heart emoji) */
+        .arrow-tip {
+            position: absolute;
+            font-size: 24px;
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes arrowShoot {
+            0% {
+                opacity: 1;
+                left: -200px;
+            }
+            100% {
+                opacity: 1;
+                left: calc(50% - 120px);
+            }
+        }
+
+        /* Heart emoji container */
+        .heart-container {
+            position: absolute;
             animation: heartAppear 0.5s ease-in-out 6s forwards;
             opacity: 0;
-            position: relative;
+            z-index: 14;
         }
 
         @keyframes heartAppear {
@@ -114,84 +152,18 @@
             }
         }
 
-        /* Heart shape using SVG styling */
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            background-color: #FFB6C1;
-            border-radius: 50%;
+        /* Heart emoji */
+        .heart-emoji {
+            font-size: 240px;
+            line-height: 1;
         }
 
-        .heart::before {
-            width: 50px;
-            height: 50px;
-            left: 5px;
-            top: 0;
+        /* Heart and arrow knock back and roll down animation */
+        .arrow-heart-container.hit {
+            animation: containerKnock 5s ease-in 8s forwards !important;
         }
 
-        .heart::after {
-            width: 50px;
-            height: 50px;
-            right: 5px;
-            top: 0;
-        }
-
-        .heart {
-            position: relative;
-        }
-
-        .heart > div {
-            position: absolute;
-            width: 80px;
-            height: 60px;
-            background-color: #FFB6C1;
-            clip-path: polygon(50% 100%, 0% 38%, 0% 0%, 38% 0%, 50% 24%, 62% 0%, 100% 0%, 100% 38%);
-        }
-
-        /* Arrow */
-        .arrow {
-            position: absolute;
-            width: 40px;
-            height: 8px;
-            background-color: #FFB6C1;
-            left: -100px;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: arrowShoot 1.5s ease-in 6.5s forwards;
-            opacity: 0;
-            z-index: 12;
-        }
-
-        .arrow::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 15px solid #FFB6C1;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            right: -15px;
-            top: 0;
-        }
-
-        @keyframes arrowShoot {
-            0% {
-                opacity: 1;
-                left: -100px;
-            }
-            100% {
-                opacity: 1;
-                left: calc(50% - 60px);
-            }
-        }
-
-        /* Heart knock back and roll down animation */
-        .heart.hit {
-            animation: heartAppear 0.5s ease-in-out 6s forwards, heartKnock 5s ease-in 8s forwards !important;
-        }
-
-        @keyframes heartKnock {
+        @keyframes containerKnock {
             0% {
                 transform: translateX(0) translateY(0) rotateZ(0deg);
                 opacity: 1;
@@ -215,9 +187,11 @@
                 font-size: 2.5rem;
                 letter-spacing: 1px;
             }
-            .heart {
-                width: 60px;
-                height: 60px;
+            .heart-emoji {
+                font-size: 180px;
+            }
+            .arrow-shaft {
+                width: 150px;
             }
         }
 
@@ -226,9 +200,11 @@
                 font-size: 1.8rem;
                 letter-spacing: 0.5px;
             }
-            .heart {
-                width: 50px;
-                height: 50px;
+            .heart-emoji {
+                font-size: 120px;
+            }
+            .arrow-shaft {
+                width: 100px;
             }
         }
     </style>
@@ -239,19 +215,22 @@
         <div class="text">
             <h1>Happy Six Months Together Ava</h1>
         </div>
-        <div class="arrow"></div>
-        <div class="heart-container">
-            <div class="heart hit">
-                <div></div>
+        <div class="arrow-heart-container">
+            <div class="arrow">
+                <div class="arrow-shaft"></div>
+                <div class="arrow-tip">❤️</div>
+            </div>
+            <div class="heart-container">
+                <div class="heart-emoji">❤️</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Trigger heart hit animation after arrow hits at 8 seconds
-        const heart = document.querySelector('.heart');
+        // Trigger heart and arrow hit animation after arrow hits at 8 seconds
+        const container = document.querySelector('.arrow-heart-container');
         setTimeout(() => {
-            heart.classList.add('hit');
+            container.classList.add('hit');
         }, 8000);
     </script>
 </body>
