@@ -211,7 +211,7 @@
             letter-spacing: 0.5px;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 0.8s ease-in-out; /* Accelerated fade durations */
             display: none;
             overflow-y: auto;
             
@@ -255,7 +255,8 @@
             color: #ffffff;
             font-weight: 300;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            display: inline;
+            display: inline-block;
+            text-align: center;
         }
 
         .cursor {
@@ -366,7 +367,8 @@
             "Hey Ava,<br><br>I have been thinking about you everyday. Every time I open my eyes I think about your face. I have grown to know you a lot better, but I’m still learning more about you everyday, every time I text you the image of you in my mind becomes more vivid. You feel so dreamy to me, almost as if you’re out of my league, the only word to describe you is perfect. I meet a lot of girls in my life but I never really felt attracted to them. It’s really hard to explain in words why I love you so much, maybe it’s because of your one of a type personality? Maybe it’s your cute face? Maybe it’s because you’re an awesome girlfriend? It’s probably all of them.<br><br>So we been together for almost two months, and from the day you accepted me I couldn’t stop thinking about you. Ava, I’m writing this you to so you know what’s a bit about me. I have no idea why you like me, I not really that special to be blunt. You can probably tell from me texting you that I’m not great with talking to girls I really like. I have had girls take interest in me before but I never really cared. So I told you about the Spanish girl that sat next to me at Spanish class. Her friend has took a liking towards me like a couple of weeks ago, she would walk me to class a few times and her friend told me she was single, I rejected her for you. My sophomore year I had three blonde girls hit me up. I ignored all three of them, I’m not sure why I did, I just didn’t really like their personality they seem unapproachable even though they made the first move. I never really had the problem with you, I really like I could talk to you pretty freely.<br><br>A little back story on me, I live in Ohio, I’m Chinese and I’m fluent in Chinese. Now that I think about it you haven’t heard my voice before, I’ll send you a short message sometime so you know what I sound like. Don’t worry I don't have an accent, nor do I sound like a fifty year old dude. I’m sixteen and I’m a junior in high school. I take pride in my art skills and engineering stuff. I really like blonde girls for some reason, (I think it’s because of you). I don’t really cuss in real life. My friend group is mostly dudes, we are a little racist but it’s to each other. Some of my hobbies are watching shows, learning how to code, and talking to other people.<br><br>Have I told you that really really like you? Yeah, there are times when you say rude stuff but I don’t really mind it much. I just really hope you love me like I love you. I don’t really like to rush relationships, some girls are not fit to be in one even though they swear they are, they lose interest within a short amount of time, they think grass is always greener on the other side, and they usually have a lot of red flags. You are my second ever real relationship and I want you to know how precious you are to me, I really like how you are. We argue a lot and we really need to work it out better, I know I upset you a lot, I’m sorry. I never really talked about my ex Victoria because I know you don’t really want to know about her, but I just wanted to let you know that you are a lot better than her in many ways. I love how genuine you are, I love that we text everyday, me and her didn’t really text normally and I was pretty stressed out the entire relationship. My’m an over thinker, when I don't you often I get really worried. Back then you would give me very short replies and we didn’t really have conversations. That’s when I decided to break up with you because I didn’t want to stay in a toxic relationship in which I wasn't valued. Even though we did write paragraphs to each other back then I couldn’t feel your love, it was like as if you lost interest in me. I’m glad those times were over, I hate short replies, it shows a lack of enthusiasm it kills my interest. I know you are busy but you still make time for me and I love you for that."
         ];
 
-        const typewriterText = "Six months, it’s been six months since we got together. Time flies when you’re doing the things you love. Let’s take the time to look back at how far we have come. The road we embarked on, and everything that we have built. Thank you for everything that you have done for me.";
+        // Updated typewriter text asset configuration
+        const typewriterText = "Six months, it’s been six months since we got together. Time flies when you’re doing the things you love. The relationship, and everything that we have built. Thank you for everything that you have done for me.";
 
         let currentScreenIndex = 0;
 
@@ -389,7 +391,7 @@
 
         function fadeOutAudio(audioElement, durationMs) {
             const startVolume = audioElement.volume || 1.0;
-            const intervalTime = 50; 
+            const intervalTime = 30; // Faster interval steps
             const steps = durationMs / intervalTime;
             const volumeDecrease = startVolume / steps;
             
@@ -432,7 +434,8 @@
                 
                 setTimeout(() => { flashDisplay.classList.add('visible'); }, 50);
 
-                let readTime = (currentText.length > 1500) ? 15000 : 8500;
+                // Rebalanced reading pacing windows to keep runtime inside audio constraints
+                let readTime = (currentText.length > 1500) ? 11500 : 7500;
 
                 setTimeout(() => {
                     flashDisplay.classList.remove('visible');
@@ -440,16 +443,14 @@
                         flashDisplay.style.display = "none";
                         currentScreenIndex++;
                         displayNextParagraph();
-                    }, 1500);
+                    }, 800); // Accelerated layout clearing intervals
                 }, readTime);
             } else {
-                // Initialize Typewriter Screen Sequence
                 runTypewriterEffect();
             }
         }
 
         function runTypewriterEffect() {
-            // Built inside a layout container framework to maintain strict centering rules
             flashDisplay.innerHTML = "<div class='typewriter-wrapper'><div class='typewriter-container' id='typeTarget'></div><span class='cursor'></span></div>";
             flashDisplay.style.display = "block";
             flashDisplay.style.columnCount = "1";
@@ -472,8 +473,8 @@
                         
                         setTimeout(() => {
                             showFinalSignOff();
-                        }, 1500);
-                    }, 4000);
+                        }, 800);
+                    }, 2500); // Shorter pause at typewriter completion to align with music end
                 }
             }, 45);
         }
@@ -483,8 +484,8 @@
             flashDisplay.style.fontSize = "2.2rem";
             flashDisplay.style.columnCount = "1";
             
-            // The song continues through everything and now triggers its fade-out strictly right here at the very end
-            fadeOutAudio(heartMusic, 3500);
+            // Trigger rapid audio fade-out right at the final screen revelation point
+            fadeOutAudio(heartMusic, 2000);
 
             setTimeout(() => { flashDisplay.classList.add('visible'); }, 50);
         }
