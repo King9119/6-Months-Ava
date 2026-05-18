@@ -94,10 +94,10 @@
             z-index: 15;
         }
 
-        /* Arrow shaft */
-        .arrow {
+        /* Arrow wrapper */
+        .arrow-wrapper {
             position: absolute;
-            left: -200px;
+            left: -350px;
             top: 50%;
             transform: translateY(-50%);
             animation: arrowShoot 1.5s ease-in 6.5s forwards;
@@ -105,10 +105,10 @@
             z-index: 12;
         }
 
-        /* Arrow shaft line */
+        /* Arrow shaft */
         .arrow-shaft {
-            width: 200px;
-            height: 6px;
+            width: 300px;
+            height: 14px;
             background-color: #FFB6C1;
             position: relative;
         }
@@ -116,20 +116,20 @@
         /* Arrow tip (heart emoji) */
         .arrow-tip {
             position: absolute;
-            font-size: 24px;
-            right: -18px;
+            font-size: 40px;
+            right: -36px;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateY(-50%) rotateZ(180deg);
         }
 
         @keyframes arrowShoot {
             0% {
                 opacity: 1;
-                left: -200px;
+                left: -350px;
             }
             100% {
                 opacity: 1;
-                left: calc(50% - 120px);
+                left: calc(50% - 150px);
             }
         }
 
@@ -158,12 +158,12 @@
             line-height: 1;
         }
 
-        /* Heart and arrow knock back and roll down animation */
+        /* Heart and arrow knock back and continuous tumble with fall */
         .arrow-heart-container.hit {
-            animation: containerKnock 5s ease-in 8s forwards !important;
+            animation: containerKnockAndFall 5s ease-in 8s forwards !important;
         }
 
-        @keyframes containerKnock {
+        @keyframes containerKnockAndFall {
             0% {
                 transform: translateX(0) translateY(0) rotateZ(0deg);
                 opacity: 1;
@@ -171,12 +171,8 @@
             10% {
                 transform: translateX(80px) translateY(0) rotateZ(0deg);
             }
-            50% {
-                transform: translateX(80px) translateY(200px) rotateZ(180deg);
-                opacity: 1;
-            }
             100% {
-                transform: translateX(80px) translateY(800px) rotateZ(360deg);
+                transform: translateX(80px) translateY(800px) rotateZ(1800deg);
                 opacity: 0;
             }
         }
@@ -191,7 +187,10 @@
                 font-size: 180px;
             }
             .arrow-shaft {
-                width: 150px;
+                width: 220px;
+            }
+            .arrow-tip {
+                font-size: 30px;
             }
         }
 
@@ -204,7 +203,10 @@
                 font-size: 120px;
             }
             .arrow-shaft {
-                width: 100px;
+                width: 140px;
+            }
+            .arrow-tip {
+                font-size: 24px;
             }
         }
     </style>
@@ -216,7 +218,7 @@
             <h1>Happy Six Months Together Ava</h1>
         </div>
         <div class="arrow-heart-container">
-            <div class="arrow">
+            <div class="arrow-wrapper">
                 <div class="arrow-shaft"></div>
                 <div class="arrow-tip">❤️</div>
             </div>
