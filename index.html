@@ -133,12 +133,16 @@
             }
         }
 
-        /* Heart emoji container */
-        .heart-container {
+        /* Heart button container */
+        .heart-button-container {
             position: absolute;
             animation: heartAppear 0.5s ease-in-out 6s forwards;
             opacity: 0;
             z-index: 14;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
         }
 
         @keyframes heartAppear {
@@ -152,15 +156,78 @@
             }
         }
 
+        /* Heart with arrow wrapper */
+        .heart-with-arrow {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         /* Heart emoji */
         .heart-emoji {
             font-size: 240px;
             line-height: 1;
         }
 
-        /* Immediate tumble and fall animation on hit */
-        .arrow-heart-container.hit {
-            animation: immediateKnockAndTumble 5s ease-in 8s forwards !important;
+        /* Arrow overlay on heart */
+        .arrow-overlay {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 16;
+        }
+
+        .arrow-overlay-shaft {
+            width: 300px;
+            height: 14px;
+            background-color: #FFB6C1;
+            position: relative;
+        }
+
+        .arrow-overlay-tip {
+            position: absolute;
+            font-size: 40px;
+            right: -36px;
+            top: 50%;
+            transform: translateY(-50%) rotateZ(-90deg);
+        }
+
+        /* Click me text */
+        .click-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            animation: fadeInClickText 1s ease-in-out 8s forwards;
+            opacity: 0;
+            z-index: 20;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @keyframes fadeInClickText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .click-text-content {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 192, 203, 0.8);
+            letter-spacing: 1px;
+        }
+
+        /* Immediate tumble and fall animation on click */
+        .arrow-heart-container.tumble {
+            animation: immediateKnockAndTumble 5s ease-in forwards !important;
         }
 
         @keyframes immediateKnockAndTumble {
@@ -174,6 +241,11 @@
             }
         }
 
+        /* Hide click text when tumbling */
+        .arrow-heart-container.tumble .click-text {
+            display: none;
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .text h1 {
@@ -183,11 +255,14 @@
             .heart-emoji {
                 font-size: 180px;
             }
-            .arrow-shaft {
+            .arrow-overlay-shaft {
                 width: 220px;
             }
-            .arrow-tip {
+            .arrow-overlay-tip {
                 font-size: 30px;
+            }
+            .click-text-content {
+                font-size: 18px;
             }
         }
 
@@ -199,11 +274,14 @@
             .heart-emoji {
                 font-size: 120px;
             }
-            .arrow-shaft {
+            .arrow-overlay-shaft {
                 width: 140px;
             }
-            .arrow-tip {
+            .arrow-overlay-tip {
                 font-size: 24px;
+            }
+            .click-text-content {
+                font-size: 14px;
             }
         }
     </style>
@@ -219,18 +297,32 @@
                 <div class="arrow-shaft"></div>
                 <div class="arrow-tip">❤️</div>
             </div>
-            <div class="heart-container">
-                <div class="heart-emoji">❤️</div>
-            </div>
+            <button class="heart-button-container" id="heartButton">
+                <div class="heart-with-arrow">
+                    <div class="heart-emoji">❤️</div>
+                    <div class="arrow-overlay">
+                        <div class="arrow-overlay-shaft"></div>
+                        <div class="arrow-overlay-tip">❤️</div>
+                    </div>
+                </div>
+                <div class="click-text">
+                    <div class="click-text-content">Click Me ❤️</div>
+                </div>
+            </button>
         </div>
     </div>
 
+    <audio id="heartMusic" src="Music.mp3"></audio>
+
     <script>
-        // Trigger heart and arrow hit animation after arrow hits at 8 seconds
+        const heartButton = document.getElementById('heartButton');
+        const heartMusic = document.getElementById('heartMusic');
         const container = document.querySelector('.arrow-heart-container');
-        setTimeout(() => {
-            container.classList.add('hit');
-        }, 8000);
+
+        heartButton.addEventListener('click', function() {
+            container.classList.add('tumble');
+            heartMusic.play();
+        });
     </script>
 </body>
 </html>
