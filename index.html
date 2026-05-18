@@ -28,31 +28,31 @@
             position: relative;
         }
 
-        /* Pink glow effect that appears from edges */
+        /* Pink glow effect that appears from edges - reduced coverage */
         .glow {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(255, 20, 147, 0.3) 100%);
+            background: radial-gradient(ellipse at center, transparent 20%, rgba(255, 20, 147, 0.2) 100%);
             animation: glowWarmup 4s ease-in-out forwards;
             pointer-events: none;
         }
 
         @keyframes glowWarmup {
             0% {
-                background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0) 100%);
+                background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0) 100%);
             }
             100% {
-                background: radial-gradient(ellipse at center, transparent 0%, rgba(255, 20, 147, 0.4) 100%);
+                background: radial-gradient(ellipse at center, transparent 20%, rgba(255, 20, 147, 0.2) 100%);
             }
         }
 
-        /* Text that fades in */
+        /* Text that fades in at same time as pink glow - 4 seconds */
         .text {
             position: relative;
             z-index: 10;
             text-align: center;
-            animation: fadeInText 3s ease-in-out 2s forwards;
+            animation: fadeInText 4s ease-in-out forwards;
             opacity: 0;
         }
 
