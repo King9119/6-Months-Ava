@@ -82,15 +82,39 @@
             text-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
         }
 
+        /* Sound warning text */
+        .sound-warning {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeInClickText 1s ease-in-out 8s forwards;
+            opacity: 0;
+            z-index: 25;
+            pointer-events: none;
+        }
+
+        .sound-warning-text {
+            color: #FFB6C1;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 192, 203, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .sound-warning.hidden {
+            display: none;
+        }
+
         /* Arrow shooting */
         .arrow-wrapper {
-            position: absolute;
+            position: fixed;
             left: -350px;
             top: 50%;
             transform: translateY(-50%);
             animation: arrowShoot 1.5s ease-in 6.5s forwards;
             opacity: 0;
-            z-index: 12;
+            z-index: 11;
             pointer-events: none;
         }
 
@@ -122,9 +146,50 @@
             }
         }
 
+        /* Heart and arrow container for tumbling */
+        .heart-arrow-wrapper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 14;
+            pointer-events: none;
+        }
+
+        .heart-arrow-wrapper.tumble {
+            animation: tumbleAndFall 5s ease-in forwards !important;
+        }
+
+        @keyframes tumbleAndFall {
+            0% {
+                transform: translate(-50%, -50%) translateX(0) translateY(0) rotateZ(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) translateX(80px) translateY(800px) rotateZ(1800deg);
+                opacity: 0;
+            }
+        }
+
+        /* Arrow within wrapper */
+        .arrow-in-wrapper {
+            position: absolute;
+            left: -50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 11;
+            width: 300px;
+            height: 14px;
+        }
+
+        .arrow-in-wrapper .arrow-shaft {
+            width: 100%;
+            height: 100%;
+        }
+
         /* Heart button container */
         .heart-button-container {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -157,6 +222,8 @@
         .heart-emoji {
             font-size: 240px;
             line-height: 1;
+            position: relative;
+            z-index: 15;
         }
 
         /* Click me text */
@@ -189,55 +256,8 @@
             letter-spacing: 1px;
         }
 
-        /* Arrow overlay on heart - only appears after click */
-        .arrow-overlay {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 16;
-            opacity: 0;
-        }
-
-        .arrow-overlay-shaft {
-            width: 300px;
-            height: 14px;
-            background-color: #FFB6C1;
-            position: relative;
-        }
-
-        .arrow-overlay-tip {
-            position: absolute;
-            font-size: 40px;
-            right: -36px;
-            top: 50%;
-            transform: translateY(-50%) rotateZ(-90deg);
-        }
-
-        /* Show arrow overlay and hide click text on tumble */
-        .heart-button-container.tumble .arrow-overlay {
-            opacity: 1;
-        }
-
-        .heart-button-container.tumble .click-text {
+        .click-text.hidden {
             display: none;
-        }
-
-        /* Tumble and fall animation */
-        .heart-button-container.tumble {
-            animation: tumbleAndFall 5s ease-in forwards !important;
-            pointer-events: none;
-        }
-
-        @keyframes tumbleAndFall {
-            0% {
-                transform: translate(-50%, -50%) translateX(0) translateY(0) rotateZ(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) translateX(80px) translateY(800px) rotateZ(1800deg);
-                opacity: 0;
-            }
         }
 
         /* Responsive design */
@@ -249,14 +269,15 @@
             .heart-emoji {
                 font-size: 180px;
             }
-            .arrow-overlay-shaft {
+            .arrow-in-wrapper {
                 width: 220px;
-            }
-            .arrow-overlay-tip {
-                font-size: 30px;
+                left: -50%;
             }
             .click-text-content {
                 font-size: 18px;
+            }
+            .sound-warning-text {
+                font-size: 14px;
             }
         }
 
@@ -268,14 +289,15 @@
             .heart-emoji {
                 font-size: 120px;
             }
-            .arrow-overlay-shaft {
+            .arrow-in-wrapper {
                 width: 140px;
-            }
-            .arrow-overlay-tip {
-                font-size: 24px;
+                left: -50%;
             }
             .click-text-content {
                 font-size: 14px;
+            }
+            .sound-warning-text {
+                font-size: 12px;
             }
         }
     </style>
@@ -286,27 +308,36 @@
         <div class="text">
             <h1>Happy Six Months Together Ava</h1>
         </div>
+        <div class="sound-warning" id="soundWarning">
+            <div class="sound-warning-text">Turn Sound On</div>
+        </div>
         <div class="arrow-wrapper">
             <div class="arrow-shaft"></div>
             <div class="arrow-tip">❤️</div>
         </div>
-        <button class="heart-button-container" id="heartButton">
-            <div class="heart-emoji">❤️</div>
-            <div class="arrow-overlay">
-                <div class="arrow-overlay-shaft"></div>
-                <div class="arrow-overlay-tip">❤️</div>
+        <div class="heart-arrow-wrapper" id="heartArrowWrapper">
+            <div class="arrow-in-wrapper">
+                <div class="arrow-shaft"></div>
+                <div class="arrow-tip">❤️</div>
             </div>
-            <div class="click-text">
-                <div class="click-text-content">Click Me ❤️</div>
-            </div>
-        </button>
+            <button class="heart-button-container" id="heartButton">
+                <div class="heart-emoji">❤️</div>
+                <div class="click-text" id="clickText">
+                    <div class="click-text-content">Click Me ❤️</div>
+                </div>
+            </button>
+        </div>
     </div>
 
     <audio id="heartMusic" src="https://raw.githubusercontent.com/King9119/6-Months-Ava/main/Music.mp3"></audio>
 
     <script>
         const heartButton = document.getElementById('heartButton');
+        const heartArrowWrapper = document.getElementById('heartArrowWrapper');
         const heartMusic = document.getElementById('heartMusic');
+        const soundWarning = document.getElementById('soundWarning');
+        const clickText = document.getElementById('clickText');
+        const arrowWrapper = document.querySelector('.arrow-wrapper');
 
         // Make button clickable at 8 seconds
         setTimeout(() => {
@@ -314,8 +345,11 @@
         }, 8000);
 
         heartButton.addEventListener('click', function() {
-            heartButton.classList.add('tumble');
+            heartArrowWrapper.classList.add('tumble');
             heartMusic.play();
+            soundWarning.classList.add('hidden');
+            clickText.classList.add('hidden');
+            arrowWrapper.style.display = 'none';
         });
     </script>
 </body>
