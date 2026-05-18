@@ -28,7 +28,7 @@
             position: relative;
         }
 
-        /* Baby pink glow that grows from edges - subtle effect */
+        /* Baby pink background glow */
         .glow {
             position: absolute;
             width: 100%;
@@ -47,7 +47,7 @@
             }
         }
 
-        /* Text that fades in - 4 seconds, then fades out - 2 seconds */
+        /* Intro Title Text */
         .text {
             position: relative;
             z-index: 10;
@@ -57,21 +57,13 @@
         }
 
         @keyframes fadeInText {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         @keyframes fadeOutText {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
         .text h1 {
@@ -82,7 +74,7 @@
             text-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
         }
 
-        /* Sound warning text */
+        /* Sound notification */
         .sound-warning {
             position: fixed;
             top: 40px;
@@ -106,7 +98,7 @@
             display: none;
         }
 
-        /* The Main Heart and Arrow Container */
+        /* Heart & Arrow Interface */
         .heart-arrow-wrapper {
             position: fixed;
             top: 50%;
@@ -118,13 +110,12 @@
             align-items: center;
         }
 
-        /* SINGLE arrow setup with updated width for perfect centering */
         .arrow-wrapper {
             position: absolute;
-            left: -100vw; /* Hidden completely off-screen initially */
+            left: -100vw;
             top: 50%;
             transform: translateY(-50%);
-            width: 360px; /* Lengthened slightly for better proportions */
+            width: 360px;
             height: 14px;
             animation: arrowShoot 1.5s ease-in 6.5s forwards;
             opacity: 0;
@@ -147,19 +138,11 @@
             transform: translateY(-50%) rotateZ(-90deg);
         }
 
-        /* Adjusted landing position so both ends stick out exactly equal */
         @keyframes arrowShoot {
-            0% {
-                opacity: 1;
-                left: -100vw;
-            }
-            100% {
-                opacity: 1;
-                left: -60px; /* Perfectly balances 60px sticking out on the left and right */
-            }
+            0% { opacity: 1; left: -100vw; }
+            100% { opacity: 1; left: -60px; }
         }
 
-        /* Heart button styling */
         .heart-button-container {
             position: relative;
             animation: heartAppear 0.5s ease-in-out 6s forwards;
@@ -177,14 +160,8 @@
         }
 
         @keyframes heartAppear {
-            0% {
-                opacity: 0;
-                transform: scale(0);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .heart-emoji {
@@ -194,7 +171,6 @@
             z-index: 15;
         }
 
-        /* Click me text */
         .click-text {
             position: absolute;
             top: 50%;
@@ -208,12 +184,8 @@
         }
 
         @keyframes fadeInClickText {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .click-text-content {
@@ -228,9 +200,8 @@
             display: none;
         }
 
-        /* Falling/Tumbling animation on click */
         .heart-arrow-wrapper.tumble {
-            animation: tumbleAndFall 5s ease-in forwards !important;
+            animation: tumbleAndFall 4s ease-in forwards !important;
             pointer-events: none;
         }
 
@@ -240,57 +211,72 @@
                 opacity: 1;
             }
             100% {
-                transform: translate(-50%, -50%) translateX(80px) translateY(800px) rotateZ(1800deg);
+                transform: translate(-50%, -50%) translateX(80px) translateY(1000px) rotateZ(1440deg);
                 opacity: 0;
             }
         }
 
-        /* Responsive design adjustments for proportional centering */
+        /* Dynamic Flash Paragraph Overlay Display */
+        .paragraph-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .flash-paragraph {
+            color: #ffffff;
+            font-size: 1.65rem;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 900px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            display: none;
+        }
+
+        .flash-paragraph.visible {
+            opacity: 1;
+        }
+
+        /* Text highlighting accent for signature blocks */
+        .highlight {
+            color: #FFB6C1;
+            text-shadow: 0 0 10px rgba(255, 182, 193, 0.6);
+            font-weight: 400;
+        }
+
+        /* Responsive UI Scaling */
         @media (max-width: 768px) {
-            .text h1 {
-                font-size: 2.5rem;
-                letter-spacing: 1px;
-            }
-            .heart-emoji {
-                font-size: 180px;
-            }
-            .arrow-wrapper {
-                width: 280px;
-            }
+            .text h1 { font-size: 2.5rem; }
+            .heart-emoji { font-size: 180px; }
+            .arrow-wrapper { width: 280px; }
             @keyframes arrowShoot {
                 0% { opacity: 1; left: -100vw; }
                 100% { opacity: 1; left: -50px; }
             }
-            .click-text-content {
-                font-size: 18px;
-            }
-            .sound-warning-text {
-                font-size: 14px;
-            }
+            .flash-paragraph { font-size: 1.25rem; line-height: 1.6; padding: 15px; }
         }
 
         @media (max-width: 480px) {
-            .text h1 {
-                font-size: 1.8rem;
-                letter-spacing: 0.5px;
-            }
-            .heart-emoji {
-                font-size: 120px;
-            }
-            .arrow-wrapper {
-                width: 200px;
-                height: 10px;
-            }
+            .text h1 { font-size: 1.8rem; }
+            .heart-emoji { font-size: 130px; }
+            .arrow-wrapper { width: 210px; height: 10px; }
             @keyframes arrowShoot {
                 0% { opacity: 1; left: -100vw; }
                 100% { opacity: 1; left: -40px; }
             }
-            .click-text-content {
-                font-size: 14px;
-            }
-            .sound-warning-text {
-                font-size: 12px;
-            }
+            .flash-paragraph { font-size: 1.05rem; line-height: 1.5; }
         }
     </style>
 </head>
@@ -307,7 +293,6 @@
         </div>
         
         <div class="heart-arrow-wrapper" id="heartArrowWrapper">
-            
             <div class="arrow-wrapper">
                 <div class="arrow-shaft">
                     <div class="arrow-tip">❤️</div>
@@ -320,11 +305,14 @@
                     <div class="click-text-content">Click Me ❤️</div>
                 </div>
             </button>
-            
+        </div>
+
+        <div class="paragraph-container">
+            <div class="flash-paragraph" id="flashDisplay"></div>
         </div>
     </div>
 
-    <audio id="heartMusic" src="https://raw.githubusercontent.com/King9119/6-Months-Ava/main/Music.mp3"></audio>
+    <audio id="heartMusic" src="https://raw.githubusercontent.com/King9119/6-Months-Ava/main/Music.mp3" loop></audio>
 
     <script>
         const heartButton = document.getElementById('heartButton');
@@ -332,18 +320,105 @@
         const heartMusic = document.getElementById('heartMusic');
         const soundWarning = document.getElementById('soundWarning');
         const clickText = document.getElementById('clickText');
+        const flashDisplay = document.getElementById('flashDisplay');
 
-        // Make button clickable at 8 seconds
+        // Master compilation of all 8 primary screens exactly in order
+        const screens = [
+            // Screen 1: Her 2-Week Letter
+            "Happy 2 weeks. These have genuinely been the best two weeks with you. even though we're miles apart, it doesn’t change anything, being far away hasn’t changed the way I feel about this relationship. 14 days with you feels like so much longer, in the best way possible. You’re honestly the sweetest boy ever, and you make my days better without even trying. I couldn’t ask for a better person. We’ve had our little ups and downs, but we passed it, I feel so beyond lucky to have you. I love every conversation we have and every moment we spend together, even if it’s just online. I didn’t realize two weeks would go by this fast. You’ve become my favorite person to talk to, my favorite person in general. I’m really happy I met you. It has only been 2 weeks but I'm looking forward to lasting so much longer with you, and having endless weekends with you, just the beginning love Genuinely happy with you, and I hope you are too with this relationship. So beyond grateful you're my person. I love how thoughtful you are, and the smallest things you've have done for me so far, I love the drawings, poems, everything. I love that you actually pay attention to what I say, and remembers it even if its something small. Truly love the amount of effort you have put into this relationship so far, you're amazing . I love how we talk everyday, and mostly every hour of the day except when we're at school, truly makes my day better. I love it all. I love your random texts and gifs I love this relationship, and I love you.",
+            
+            // Screen 2: Your 2-Week Letter
+            "Happy 2 weeks Ava. My weeks with you has been some of the happiest time in my life. You’re such a great girlfriend I cannot ask for more. Time flies when I am with you, I end up wishing for more time with you every single day. You bring me joy that I cannot explain in words. You may think of yourself as a “basic blonde girl” but to me you hold much greater value, you’re one of a kind, the type that I’ll only come across once. I love texting you, I know that you care about our relationship. Every time I text you my heart beats faster. My life now revolves around you. I am so grateful for your company and your trust. I strive to be better for you and earn your trust piece by piece. You’re my holy grail, and to be able to be with you is one of my life’s greatest achievements. I love your character. I love your cockiness. I love your attentiveness. I love everything about you. Though we maybe apart I feel so connected to you. “A journey of 1000 miles starts with one step” I believe that our relationship is one of longevity and greatness. I love you so so incredibly much, you make my life so so much better. I wish that we could continue this relationship forever.",
+            
+            // Screen 3: Her 3-Week Letter
+            "Happy 3 weeks baby. These past days have went by so fast, feels like we've been together for longer than 3 weeks. Miles apart, you still manage to make me the happiest girl ever. You really are the best, you make my days so much easier, just you being in it makes it easier. You make feel understood about everything, and cared for. You've become my favorite person, my best friend, and the best boyfriend I could ask for whether its online or not. I'm so so grateful for you, and this relationship we have. I love how you make everything better, how you manage to lighten up all my days. I love everything you do for me, i have said this so much but I'm truly grateful for it all, the smallest things you've done for me means everything. Getting a good morning text, and good night text the last 21 days are genuinely the sweetest thing ever. Thank you for showing you care. Thank you for being a great boyfriend, and for always being the sweetest boy ever. I know I can be a lot to put up with, and im just so grateful you're the one putting up with me, you're genuinely so good towards me, thank you for the best 3 weeks possible. 3 weeks doesn't seem like that much but it seems like forever. 21 days of loving you, growing with you, and being better for you, and this relationship. I truly can't wait for all the weeks, and months we have coming towards us. You have genuinely made these 3 weeks so much easier. I love everything about this relationship. I love how this relationship doesn't feel weird or forced, genuinely just in love . The way you understand me, and make me feel is just great, and everything feels so real with you. I love how you make time for me even when we have school, and everything else going on. You still manage to be great, and treat me great. Please don't ever change. Thank you for always communicating with me these past 3 weeks because I know I'm not the easiest person to communicate with, so thank you for always being patient with me. Truly your number 1 supporter already. I wanna last forever with you, sweetest boy ever. Really looking forward to months, thank you for genuinely wanting something with me, and talking to me everyday, every hour of the day. you make me feel so loved by you, you make all this worth it. thank you for putting in so much effort, truly never taking this for granted, my sweet boy. I truly love you as the person you are, not just my boyfriend, but you, and your personality. you make it easy to love you, and I hope you feel the same. You've become apart of my daily schedule in the morning, evening, and night. I love how you motivate me to do better in everything even if you don't notice that. truly motivating me to do better in school, and everything else. I love you so much sweet boy Honestly the best relationship I could ask for, 21 days, and ive realized I wouldn't trade it for anything, the best person to have a relationship with. All this is so worth it with you, so much reasons to love you, you're truly an amazing person, and boyfriend. I love all of our random conversations, I truly do appreciate the amount of effort you have put into this relationship, though it's only been 3 weeks. I genuinely want a future with you, and hopefully we can get there. I will always choose you for you. You've genuinely made such a change in my past relationships, and I wouldn't want it any other way, you're great. you're the sweetest, kindest, and most caring boy ever.I love how we don't have to force conversations to have them, its all just natural in a way. I love how we can talk about so much random things, and it still ends up being the best part of my day. you make the simplest parts feel amazing just by being yourself. online but you've made such an impact on me, everyday. I love how we're both excited to go on to months, and more weeks, truly the sweetest. you give me something to look forward to everyday, beyond grateful for it. even when im annoyed with something, you make it better always. you're just that one person I can talk to about anything, and not feel judged. never taking this relationship for granted, and I really mean this. I love how you're consistent in this relationship, even if you have a lot to do. the best parts of these 3 weeks is realizing we can last way longer, and the potential we have in this relationship. even though its still early, I really hope we can last. I will be so proud if we do, so connected to you. I love how you've changed the way I think of relationships now, really is worth it with you. I love you endlessly",
+            
+            // Screen 4: Your 3-Week Letter
+            "Babe,<br><br>This has truly been one of the best three weeks of my life. You showed up in my life like a miracle; you're the sole reason I returned to Doomz. You gave me a second chance to save our relationship, and I am beyond thankful for that.<br><br>I love your personality so much. I love how you care about our relationship and how you put in the time. There are countless things I could name. I have always been searching for someone like you. I didn’t know anyone had those traits until I met you.<br><br>Though we only been together for three weeks, I felt that we been together so much longer, integrating into my life almost seamlessly. I love texting with you; you’re my favorite person to talk to. I love our conversations, though they might be random, they put a smile on my face. You are so dear to me.<br><br>You made me focus better in school instead of just wasting time with my friends. Though most of the time, I only think about you as I zone off in class. You encourage me to become better and become a better person. I know I am not perfect, but having you makes me want to be perfect for you.<br><br>You're one of the few people I truly trust. I feel safe talking to you. I value that a lot, as when I look for a relationship, I want to be able to trust my partner and communicate with them properly. Though we are still working on our relationship, I believe that we been pretty good at communicating. I know sometimes I annoy you, but I feel so grateful that you were able to talk to me about it instead of just cold shouldering me.<br><br>Ever since the start of our relationship, I wanted to ensure its longevity. I want to prove myself trustworthy to you. I understand that your past relationships have not ended well, and this created doubt. I want to continue to build trust with you, and I love you for accepting me. Most importantly, I want you to feel loved.<br><br>I know sometimes I’m dumb and annoying, and you put up with me. You have a great personality and could understand jokes. It's really hard to get along with someone who lacks humor, and I’m so glad I found someone who could take a joke. You are able to understand me. You're so awesome its almost unbelievable.<br><br>You remind me of a goddess, perfect and engaging; it feels like a dream. Thinking about you brings light to my day. You were someone I’d always admired, and it still bewilders me that I could call you mine. I am not exactly sure why you wanted to date me, but I know exactly why I wanted to date you. Being with you makes my heart beat faster.<br><br>Our relationship might be long-distance, but I feel so close to you as if you are right next to me. I enjoy spending my time with you, and I always end up wishing for more time. I wish we lived closer so I could meet you in real life and get to know you better. I know you must be a great person in real life. I wish I could take you out to the movies, I wish I could take you on a date, I wish I could show you off to my friends. There's so much I want to do together with you.<br><br>I've been searching for the special someone for a long, long time. I think you're the one. I almost never feel attach with anyone online, but you're different. I want to connect with you. I treat you as I would a relationship in real life, I want you and nothing more. You are my future.<br><br>I am so grateful for everything you done for me. I wanted someone to love me and to care about me. I wanted someone who treats their relationship more personally, instead of a way to waste time and cure boredom. You’re just that. I can see that you care and that you put time and effort into our relationship and facilitate it. I am so grateful for you.<br><br>I love the pictures you sent me. I personally think they are super cute and filled with personality. You look so unbelievably good. I wouldn’t be surprised if you were a model. There's no one quite like you. You’re so picture perfect, you look amazing just the way you are.<br><br>I can’t wait to spend more time with you. You're such a great girlfriend, I cannot ask for more. We overcame problems along the way, which I believe helped build trust in our relationship. “Hard times create relationships, strong relationships create good times, good times create weak relationships, and weak relationships create hard times.” I am so happy that we were able to overcome problems as they occurred and also strengthen our relationship. We were able to set better boundaries, and I was able to better understand you.<br><br>I love you so incredibly much, you're like a blessing to me. I don’t want you to ever change. I hope that our relationship lasts forever. I hope that you will love me forever. I hope that nothing will ever change.",
+            
+            // Screen 5: Her 1-Month Letter
+            "No words, I genuinely love you so much. One month has been the best one with you, and every day I get to talk to you becomes my favorite part of the day. I can’t believe we’re already at one month—it feels like time flies when I’m with you, but at the same time it feels like I’ve known you so much longer. Even though we’re not physically together, you’ve managed to make me feel closer, safer, and happier than I ever expected. You’ve shown me that distance doesn’t stop real feelings, effort, or love. From the good morning texts to the late-night conversations, every little moment with you means everything to me. You make me laugh when I need it most, calm me down when my mind gets overwhelmed, and remind me every day how cared for I am. Being with you has made my days brighter and my heart fuller in ways I didn’t even know were possible. I love how we’ve grown together in just one month—learning each other, supporting each other, and choosing each other every single day. You’ve become my comfort, my favorite person to talk to, and someone I genuinely look forward to a future with. I’m so grateful for you, for us, and for everything we’re building together, no matter the distance. If one month feels this amazing, I can’t wait to see what’s ahead for us. I wouldn’t want to do this with anyone else I love how easy everything feels with you, like I can just be myself without overthinking anything. Talking to you has become part of my routine in the best way, something I look forward to no matter how my day goes. You have this way of making even ordinary moments feel special, and I don’t think you realize how much that means to me. What we have feels genuine and real, and that’s something I really appreciate. I love the effort you put in, the way you care, and how consistent you are with me. Even from far away, you make me feel chosen, valued, and important, and that’s not something I take lightly at all. This month with you has honestly been something I’ll always look back on with a smile. It’s made me excited for what’s ahead and confident in what we’re building together. No matter the distance, I’m really happy it’s you, and I’m grateful every day that I get to call you mine. I love everything about this relationship, means beyond. I love everything about it, I love when we play together, and everything else. You've genuinely made this month amazing. I love that you’re not just my boyfriend, but my best friend too. You’re the person I want to tell everything to first, whether it’s something exciting, random, or something that’s been weighing on me. Being able to laugh with you, joke around, and just be dumb together means so much to me, and it makes this relationship feel even more special. You understand me in a way that feels rare, and I love how comfortable I am with you. I never feel judged or misunderstood when I talk to you, and that makes me feel so safe opening up. Having you in my life feels like having someone who’s always on my side, no matter what. This month has shown me how lucky I am to have you, not just as someone I love, but as my best friend and my person. I’m so thankful for every moment we share, every laugh, and every conversation, and I can’t wait to keep building something even stronger with you. I just love us, like really love us. I love how natural it feels and how nothing feels forced. I love that even on boring days you still make things better just by being there. You make me feel understood without me having to explain everything. I don’t feel alone when I have you. This month really showed me how much you matter to me and how real my feelings are. I’m so excited to keep going, keep learning each other, and keep choosing you every day the same way I already. I think about you more than I probably even realize. Little things remind me of you throughout the day and it always makes me smile without trying. You’ve become such a big part of my life so fast and it feels so normal, like you were always meant to be here. I love how we check in on each other and how you genuinely care about how I’m doing, even with the smallest things. I love knowing that no matter how my day goes, I get to end it talking to you. You make the bad days easier and the good days even better. Being with you feels comforting but also exciting at the same time, like I’m safe but also looking forward to what’s next. I never feel like I have to question how you feel about me, and that means everything. I’m really proud of what we’ve built in just one month. It’s not just the time, it’s the effort, the communication, and the way we both show up for each other. I love that we grow together instead of apart, and that we always find our way back to each other. I don’t know exactly what the future looks like, but I know I want you in it. I want more months like this, more memories, more laughs, more late nights, and more everything with you. You’re my person, my best friend, and the one I choose, always.",
+            
+            // Screen 6: Her 100 Things She Loves List
+            "1. I love how you always text me goodnight<br>2. I love how you always text me good morning<br>3. I love your voice<br>4. I love how patient you are with me<br>5. I love the way you reassure me<br>6. I love how you remember little things<br>7. I love how you care about my feelings<br>8. I love your personality<br>9. I love your sense of humor<br>10. I love your kindness towards others<br>11. I love how sweet you are to me<br>12. I love how you make time for me<br>13. I love spending time with you<br>14. I love your compliments<br>15. I love how genuine you are<br>16. I love how you care for people<br>17. I love how you let me be myself with you<br>18. I love how you don't judge me<br>19. I love how you like collecting things<br>20. I love your effort<br>21. I love how you make me feel pretty<br>22. I love your energy<br>23. I love how you respect me<br>24. I love how you make me feel important<br>25. I love how you comfort me<br>26. I love how you make normal days better<br>27. I love your hugs even if its online<br>28. I love how you always reply<br>29. I love when you miss me<br>30. I love when you tell me you care<br>31. I love how you support me<br>32. I love how you always want to talk<br>33. I love when you try to fix things<br>34. I love your lego collection<br>35. I love your drawings<br>36. I love how you think of me randomly<br>37. I love how you tell me things you don't tell other people<br>38. I love how forgiving you are<br>39. I love how you make me feel missed<br>40. I love how you always talk to me everyday<br>41. I love how you make me feel like im apart of your routine<br>42. I love how you always try to understand my side<br>43. I love how you understand me<br>44. I love how you don't get tired of me<br>45. I love how you make me feel appreciated<br>46. I love how you remind me that I matter to you<br>47. I love how you stay even if things are bad<br>48. I love how you care about our relationship<br>49. I love how you make my days brighter without trying<br>50. I love how you make me feel lucky to have you<br>51. I love how you make distance feel smaller between us<br>52. I love how you always want to hear about my day<br>53. I love how you make waiting for you worth it<br>54. I love how you include me in your life<br>55. I love how you never rush me when I’m talking<br>56. I love how you notice when something’s off<br>57. I love how you make conversations feel easy<br>58. I love how you always come back after being busy<br>59. I love how you make me feel like I belong with you<br>60. I love how you never make me feel silly for my feelings<br>61. I love how you care when I’m stressed<br>62. I love how you always try to make things better<br>63. I love how you always want the best for me<br>64. I love how you encourage me when I doubt myself<br>65. I love how you make me feel understood without explaining much<br>66. I love how you never let distance change how you treat me<br>67. I love how you make time together meaningful<br>68. I love how you make me feel special in little ways<br>69. I love how you make me feel like I’m your person<br>70. I love how you make even short talks feel important<br>71. I love how you stay patient when I overthink<br>72. I love how you give me 2nd chances<br>73. I love how you choose me<br>74. I love how you try<br>75. I love your hobbies<br>76. I love the random gifs you send<br>77. I love your random messages<br>78. I love your paragraphs<br>79. I love everything you do for me<br>80. I love your goals<br>81. I love how you try to do better in school<br>82. I love that you're smart<br>83. I love how talented you are in art<br>84. I love hearing about your day<br>85. I loved watching you play that game<br>86. I love watching you draw me a flower<br>87. I love drawing with you<br>88. I loved playing skribbl with you (sad we don't do it much now)<br>89. I love how you ask for my opinion on things<br>90. I love your messages<br>91. I love how you make me feel seen<br>92. I love your looks<br>93. I love your pics even if i don't get much<br>94. I love how you always text me hi<br>95. I love how you include me in things<br>96. I love how you try to know things about me<br>97. I love how you make me feel important in your life<br>98. I love how you check in<br>99. I love how you talk about me in a positive way<br>100. I love loving you ❤️",
+            
+            // Screen 7: Your Core List Additions
+            "I love your company, time flies when I’m with you<br>I love your eyes, they shine with a glow that reflects the seas<br>I love your humour, I love being with you<br>I love your style, its so cute<br>I love that you listen<br>I love the way you make me feel loved<br>I love that you care about ur relationship<br>I love that you spend time to facilitate our relationship<br>I love that you for being willing to communicate<br>I love the way the you understand me<br>I love your presence after a long day<br>I love that you make my heart beat faster<br>I love reading your messages<br>I love the paragraph you write me, I read them over and over<br>I love that you remember that little things<br>I love the way that you forgive<br>I love that you help me grow and become better<br>I love your patience with me<br>I love that your mood can change a whole room<br>I love the way you believe in me<br>I love that your not hot and cold<br>I love that our relationship is advancing<br>I love your small habits<br>I love the way you want to spend time with me<br>I love that you are someone I could trust<br>I love that I can tell you more about me<br>I love your consistency<br>I love you for the way you make me feel grateful<br>I love how you bring joy into my day<br>I love you for making me the lucky guy<br>I love you changing my life<br>I love your blonde hair<br>I love your cute face<br>I love that you can make any random photo feel beautiful<br>I love that you honest<br>I love knowing about you life<br>I love that you eat Mc Donalds everyday, its pretty funny<br>I love that you give me a goal to follow<br>I love that you miss me<br>I love that you love me<br>I love that your someone who cares<br>I love that you spend time even though you’re tried<br>I love your kindness even to strangers<br>I love that you gave me a second chance<br>I love your confidence<br>I love your cockiness and your boasting<br>I love how cute you are<br>I love your hugs even though they are in game<br>I love that you are different<br>I love our first week together<br>I love our second week together<br>I love our third week together<br>I love our one month together<br>I love your time spent with me<br>I love your commitment<br>I love your dedication<br>I love your fidelity<br>I love the build of a heart that you made me<br>I love the way you look<br>I love your personality<br>I love your gifs<br>I love your drawings<br>I love that you bring joy to my day<br>I love your intelligence<br>I love your random texts<br>I love your smile in photos<br>I love how you change my mood for the better<br>I love how you apologise<br>I love your jokes<br>I love your pictures<br>I love your compassion<br>I love that you have trust in me<br>I love that we been able to recover our relationship<br>I love your questions<br>I love your quick wit<br>I love that your annoying<br>I love the times we spent on doomz<br>I love playing different games with you<br>I love showing you off<br>I love your taste in music<br>I love your that your a awesome gf<br>I love your thoughtfulness<br>I love that you make me feel complete<br>I love your presence next to me even if its online<br>I love your natural beauty<br>I love our connection together<br>I love that your favourite animal is a puppy<br>I love you for teaching me how to use my air fryer<br>I love thinking of you in my sleep<br>I love that your prefect<br>I love you for overcoming challenges with me<br>I love your hints<br>I love your enthusiasm<br>I love how you stay with me even though I had no time<br>I love how you encourage me to complete me tasks<br>I love how we text daily<br>I love you pose in your photos<br>I love how graceful you are<br>I love our relationship together<br>I love how we were able to make it so long<br>I love how you make my heart melt",
+            
+            // Screen 8: Your 2-Month Letter
+            "Hey Ava,<br><br>I have been thinking about you everyday. Every time I open my eyes I think about your face.  I have grown to know you a lot better, but I’m still learning more about you everyday, every time I text you the image of you in my mind becomes more vivid. You feel so dreamy to me, almost as if you’re out of my league, the only word to describe you is perfect. I meet a lot of girls in my life but I never really felt attracted to them. It’s really hard to explain in words why I love you so much, maybe it’s because of your one of a type personality? Maybe it’s your cute face? Maybe it’s because you’re an awesome girlfriend? It’s probably all of them.<br><br>So we been together for almost two months, and from the day you accepted me I couldn’t stop thinking about you. Ava, I’m writing this you to so you know what’s a bit about me. I have no idea why you like me, I not really that special to be blunt. You can probably tell from me texting you that I’m not great with talking to girls I really like. I have had girls take interest in me before but I never really cared. So I told you about the Spanish girl that sat next to me at Spanish class. Her friend has took a liking towards me like a couple of weeks ago, she would walk me to class a few times and her friend told me she was single, I rejected her for you. My sophomore year I had three blonde girls hit me up. I ignored all three of them, I’m not sure why I did, I just didn’t really like their personality they seem unapproachable even though they made the first move. I never really had the problem with you, I really like I could talk to you pretty freely.<br><br>A little back story on me, I live in Ohio, I’m Chinese and I’m fluent in Chinese. Now that I think about it you haven’t heard my voice before, I’ll send you a short message sometime so you know what I sound like. Don’t worry I don’t have an accent, nor do I sound like a fifty year old dude. I’m sixteen and I’m a junior in high school. I take pride in my art skills and engineering stuff. I really like blonde girls for some reason, (I think it’s because of you). I don’t really cuss in real life. My friend group is mostly dudes, we are a little racist but it’s to each other. Some of my hobbies are watching shows, learning how to code, and talking to other people.<br><br>Have I told you that really really like you? Yeah, there are times when you say rude stuff but I don’t really mind it much.  I just really hope you love me like I love you. I don’t really like to rush relationships, some girls are not fit to be in one even though they swear they are, they lose interest within a short amount of time, they think grass is always greener on the other side, and they usually have a lot of red flags. You are my second ever real relationship and I want you to know how precious you are to me, I really like how you are. We argue a lot and we really need to work it out better, I know I upset you a lot, I’m sorry. I never really talked about my ex Victoria because I know you don’t really want to know about her, but I just wanted to let you know that you are a lot better than her in many ways. I love how genuine you are, I love that we text everyday, me and her didn’t really text normally and I was pretty stressed out the entire relationship. I’m an over thinker, when I don’t you often I get really worried. Back then you would give me very short replies and we didn’t really have conversations. That’s when I decided to break up with you because I didn’t want to stay in a toxic relationship in which I wasn’t valued. Even though we did write paragraphs to each other back then I couldn’t feel your love, it was like as if you lost interest in me. I’m glad those times were over, I hate short replies, it shows a lack of enthusiasm it kills my interest. I know you are busy but you still make time for me and I love you for that."
+        ];
+
+        let currentScreenIndex = 0;
+
+        // Make button interactive at exactly 8 seconds
         setTimeout(() => {
             heartButton.classList.add('clickable');
         }, 8000);
 
         heartButton.addEventListener('click', function() {
+            // 1. Kick off animations and play background music
             heartArrowWrapper.classList.add('tumble');
-            heartMusic.play();
+            heartMusic.play().catch(err => console.log("Audio playback click block caught:", err));
+            
+            // 2. Clear UI system warnings
             soundWarning.classList.add('hidden');
             clickText.classList.add('hidden');
+            
+            // 3. Wait for the falling animation to finish, then begin the text loop
+            setTimeout(() => {
+                heartArrowWrapper.style.display = 'none';
+                displayNextParagraph();
+            }, 3000);
         });
+
+        function displayNextParagraph() {
+            if (currentScreenIndex < screens.length) {
+                // If it's a super long list or letter, let's switch layout styling to make it completely scrollable
+                if (screens[currentScreenIndex].length > 1000 || currentScreenIndex === 5 || currentScreenIndex === 6) {
+                    flashDisplay.style.maxHeight = "85vh";
+                    flashDisplay.style.overflowY = "auto";
+                    flashDisplay.style.textAlign = "left";
+                    flashDisplay.style.paddingRight = "10px";
+                } else {
+                    flashDisplay.style.maxHeight = "none";
+                    flashDisplay.style.overflowY = "visible";
+                    flashDisplay.style.textAlign = "center";
+                }
+
+                // Inject text layout content
+                flashDisplay.innerHTML = screens[currentScreenIndex];
+                flashDisplay.style.display = "block";
+                
+                // Trigger fade-in transition
+                setTimeout(() => {
+                    flashDisplay.classList.add('visible');
+                }, 50);
+
+                // Wait 12 seconds for huge paragraphs, or 7 seconds for standard sections, then fade out
+                let readTime = (screens[currentScreenIndex].length > 800) ? 12000 : 7000;
+
+                setTimeout(() => {
+                    flashDisplay.classList.remove('visible');
+                    
+                    // Wait for the fade-out animation to completely finish before pulling the next text
+                    setTimeout(() => {
+                        flashDisplay.style.display = "none";
+                        currentScreenIndex++;
+                        displayNextParagraph();
+                    }, 1500);
+
+                }, readTime);
+            } else {
+                // Ending Sequence: Loop back or finish beautifully
+                flashDisplay.innerHTML = "<span class='highlight'>I love you endlessly, Ava. Happy 6 Months. ❤️</span>";
+                flashDisplay.style.display = "block";
+                flashDisplay.style.textAlign = "center";
+                setTimeout(() => {
+                    flashDisplay.classList.add('visible');
+                }, 50);
+            }
+        }
     </script>
 </body>
 </html>
