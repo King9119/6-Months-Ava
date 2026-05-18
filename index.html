@@ -113,15 +113,18 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 14;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* The SINGLE arrow structure that handles the entry shooting animation */
+        /* SINGLE arrow setup with updated width for perfect centering */
         .arrow-wrapper {
             position: absolute;
-            left: -100vw; /* Hidden completely off-screen to the left initially */
+            left: -100vw; /* Hidden completely off-screen initially */
             top: 50%;
             transform: translateY(-50%);
-            width: 300px;
+            width: 360px; /* Lengthened slightly for better proportions */
             height: 14px;
             animation: arrowShoot 1.5s ease-in 6.5s forwards;
             opacity: 0;
@@ -144,7 +147,7 @@
             transform: translateY(-50%) rotateZ(-90deg);
         }
 
-        /* Animation to shoot arrow directly into position piercing the heart */
+        /* Adjusted landing position so both ends stick out exactly equal */
         @keyframes arrowShoot {
             0% {
                 opacity: 1;
@@ -152,7 +155,7 @@
             }
             100% {
                 opacity: 1;
-                left: -180px; /* Positions perfectly piercing through the center of the heart */
+                left: -60px; /* Perfectly balances 60px sticking out on the left and right */
             }
         }
 
@@ -242,7 +245,7 @@
             }
         }
 
-        /* Responsive design */
+        /* Responsive design adjustments for proportional centering */
         @media (max-width: 768px) {
             .text h1 {
                 font-size: 2.5rem;
@@ -252,11 +255,11 @@
                 font-size: 180px;
             }
             .arrow-wrapper {
-                width: 220px;
+                width: 280px;
             }
             @keyframes arrowShoot {
                 0% { opacity: 1; left: -100vw; }
-                100% { opacity: 1; left: -130px; }
+                100% { opacity: 1; left: -50px; }
             }
             .click-text-content {
                 font-size: 18px;
@@ -275,12 +278,12 @@
                 font-size: 120px;
             }
             .arrow-wrapper {
-                width: 140px;
+                width: 200px;
                 height: 10px;
             }
             @keyframes arrowShoot {
                 0% { opacity: 1; left: -100vw; }
-                100% { opacity: 1; left: -85px; }
+                100% { opacity: 1; left: -40px; }
             }
             .click-text-content {
                 font-size: 14px;
