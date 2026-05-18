@@ -82,19 +82,7 @@
             text-shadow: 0 0 20px rgba(255, 192, 203, 0.6);
         }
 
-        /* Arrow and Heart Container */
-        .arrow-heart-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        /* Arrow wrapper */
+        /* Arrow shooting */
         .arrow-wrapper {
             position: absolute;
             left: -350px;
@@ -103,6 +91,7 @@
             animation: arrowShoot 1.5s ease-in 6.5s forwards;
             opacity: 0;
             z-index: 12;
+            pointer-events: none;
         }
 
         /* Arrow shaft */
@@ -135,7 +124,10 @@
 
         /* Heart button container */
         .heart-button-container {
-            position: absolute;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             animation: heartAppear 0.5s ease-in-out 6s forwards;
             opacity: 0;
             z-index: 14;
@@ -143,55 +135,28 @@
             border: none;
             background: none;
             padding: 0;
+            pointer-events: none;
+        }
+
+        .heart-button-container.clickable {
+            pointer-events: auto;
         }
 
         @keyframes heartAppear {
             0% {
                 opacity: 0;
-                transform: scale(0);
+                transform: translate(-50%, -50%) scale(0);
             }
             100% {
                 opacity: 1;
-                transform: scale(1);
+                transform: translate(-50%, -50%) scale(1);
             }
-        }
-
-        /* Heart with arrow wrapper */
-        .heart-with-arrow {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         /* Heart emoji */
         .heart-emoji {
             font-size: 240px;
             line-height: 1;
-        }
-
-        /* Arrow overlay on heart */
-        .arrow-overlay {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 16;
-        }
-
-        .arrow-overlay-shaft {
-            width: 300px;
-            height: 14px;
-            background-color: #FFB6C1;
-            position: relative;
-        }
-
-        .arrow-overlay-tip {
-            position: absolute;
-            font-size: 40px;
-            right: -36px;
-            top: 50%;
-            transform: translateY(-50%) rotateZ(-90deg);
         }
 
         /* Click me text */
@@ -204,7 +169,6 @@
             animation: fadeInClickText 1s ease-in-out 8s forwards;
             opacity: 0;
             z-index: 20;
-            pointer-events: none;
             white-space: nowrap;
         }
 
@@ -225,25 +189,55 @@
             letter-spacing: 1px;
         }
 
-        /* Immediate tumble and fall animation on click */
-        .arrow-heart-container.tumble {
-            animation: immediateKnockAndTumble 5s ease-in forwards !important;
+        /* Arrow overlay on heart - only appears after click */
+        .arrow-overlay {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 16;
+            opacity: 0;
         }
 
-        @keyframes immediateKnockAndTumble {
+        .arrow-overlay-shaft {
+            width: 300px;
+            height: 14px;
+            background-color: #FFB6C1;
+            position: relative;
+        }
+
+        .arrow-overlay-tip {
+            position: absolute;
+            font-size: 40px;
+            right: -36px;
+            top: 50%;
+            transform: translateY(-50%) rotateZ(-90deg);
+        }
+
+        /* Show arrow overlay and hide click text on tumble */
+        .heart-button-container.tumble .arrow-overlay {
+            opacity: 1;
+        }
+
+        .heart-button-container.tumble .click-text {
+            display: none;
+        }
+
+        /* Tumble and fall animation */
+        .heart-button-container.tumble {
+            animation: tumbleAndFall 5s ease-in forwards !important;
+            pointer-events: none;
+        }
+
+        @keyframes tumbleAndFall {
             0% {
-                transform: translateX(0) translateY(0) rotateZ(0deg);
+                transform: translate(-50%, -50%) translateX(0) translateY(0) rotateZ(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translateX(80px) translateY(800px) rotateZ(1800deg);
+                transform: translate(-50%, -50%) translateX(80px) translateY(800px) rotateZ(1800deg);
                 opacity: 0;
             }
-        }
-
-        /* Hide click text when tumbling */
-        .arrow-heart-container.tumble .click-text {
-            display: none;
         }
 
         /* Responsive design */
@@ -292,35 +286,35 @@
         <div class="text">
             <h1>Happy Six Months Together Ava</h1>
         </div>
-        <div class="arrow-heart-container">
-            <div class="arrow-wrapper">
-                <div class="arrow-shaft"></div>
-                <div class="arrow-tip">❤️</div>
-            </div>
-            <button class="heart-button-container" id="heartButton">
-                <div class="heart-with-arrow">
-                    <div class="heart-emoji">❤️</div>
-                    <div class="arrow-overlay">
-                        <div class="arrow-overlay-shaft"></div>
-                        <div class="arrow-overlay-tip">❤️</div>
-                    </div>
-                </div>
-                <div class="click-text">
-                    <div class="click-text-content">Click Me ❤️</div>
-                </div>
-            </button>
+        <div class="arrow-wrapper">
+            <div class="arrow-shaft"></div>
+            <div class="arrow-tip">❤️</div>
         </div>
+        <button class="heart-button-container" id="heartButton">
+            <div class="heart-emoji">❤️</div>
+            <div class="arrow-overlay">
+                <div class="arrow-overlay-shaft"></div>
+                <div class="arrow-overlay-tip">❤️</div>
+            </div>
+            <div class="click-text">
+                <div class="click-text-content">Click Me ❤️</div>
+            </div>
+        </button>
     </div>
 
-    <audio id="heartMusic" src="Music.mp3"></audio>
+    <audio id="heartMusic" src="https://raw.githubusercontent.com/King9119/6-Months-Ava/main/Music.mp3"></audio>
 
     <script>
         const heartButton = document.getElementById('heartButton');
         const heartMusic = document.getElementById('heartMusic');
-        const container = document.querySelector('.arrow-heart-container');
+
+        // Make button clickable at 8 seconds
+        setTimeout(() => {
+            heartButton.classList.add('clickable');
+        }, 8000);
 
         heartButton.addEventListener('click', function() {
-            container.classList.add('tumble');
+            heartButton.classList.add('tumble');
             heartMusic.play();
         });
     </script>
